@@ -1,4 +1,5 @@
 #include "main.h"
+#include <drivetrain-functions.cpp>
 
 /**
  * A callback function for LLEMU's center button.
@@ -27,6 +28,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+	autonomous();
 }
 
 /**
@@ -58,7 +60,11 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	//main update loop
+
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
