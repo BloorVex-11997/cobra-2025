@@ -1,5 +1,5 @@
 #include "main.h"
-#include <drivetrain-functions.cpp>
+#include "drivetrain-functions.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -62,7 +62,21 @@ void competition_initialize() {}
  */
 void autonomous() {
 	//main update loop
+	pros::Controller controller(pros::E_CONTROLLER_MASTER);
+	while(true){
+		int analogY = controller.get_analog(ANALOG_RIGHT_Y);
+		int analogX = controller.get_analog(ANALOG_LEFT_X);
+		if(analogY != 0){
+			move(analogY);
 
+		}
+		else{
+			turn(analogX);
+		}
+
+		pros::delay(20);
+
+	}
 
 }
 
@@ -80,6 +94,7 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	/*
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	pros::MotorGroup left_mg({1, -2, 3});    // Creates a motor group with forwards ports 1 & 3 and reversed port 2
 	pros::MotorGroup right_mg({-4, 5, -6});  // Creates a motor group with forwards port 5 and reversed ports 4 & 6
@@ -95,6 +110,11 @@ void opcontrol() {
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		left_mg.move(dir - turn);                      // Sets left motor voltage
 		right_mg.move(dir + turn);                     // Sets right motor voltage
-		pros::delay(20);                               // Run for 20 ms then update
+		pros::delay(20); 
+		// Run for 20 ms then update
+		
 	}
+	*/
+
+	
 }
