@@ -11,3 +11,7 @@ void extend_elevator() {
 void retract_elevator() {
     elevator_motor.move(-ELEVATOR_SPEED);
 }
+
+void elevator_periodic() {
+    
+}

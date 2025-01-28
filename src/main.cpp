@@ -1,5 +1,6 @@
 #include "main.h"
 #include "drivetrain-functions.h"
+#include "elevator-functions.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -62,21 +63,9 @@ void competition_initialize() {}
  */
 void autonomous() {
 	//main update loop
-	pros::Controller controller(pros::E_CONTROLLER_MASTER);
-	while(true){
-		int analogY = controller.get_analog(ANALOG_RIGHT_Y);
-		int analogX = controller.get_analog(ANALOG_LEFT_X);
-		if(analogY != 0){
-			move(analogY);
-
-		}
-		else{
-			turn(analogX);
-		}
-
-		pros::delay(20);
-
-	}
+	drivetrain_periodic();
+	elevator_periodic();
+	pros::delay(20);
 
 }
 

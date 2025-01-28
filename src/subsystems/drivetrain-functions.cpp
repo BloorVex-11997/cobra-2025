@@ -17,3 +17,17 @@ void turn(int speed) {
     
 }
 
+void drivetrain_periodic() {
+    pros::Controller controller(pros::E_CONTROLLER_MASTER);
+    
+	while(true){
+		int analogY = controller.get_analog(ANALOG_RIGHT_Y);
+		int analogX = controller.get_analog(ANALOG_LEFT_X);
+		if(analogY != 0){
+			move(analogY);
+		}
+		else{
+			turn(analogX);
+		}
+	}
+}
