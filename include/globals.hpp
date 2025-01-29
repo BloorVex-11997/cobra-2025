@@ -12,3 +12,6 @@ const int ELEVATOR_SPEED = 10;
 
 const int GRABBER_MOTOR_ID = 1;
 const int GRABBER_SPEED = 10;
+
+const int NORMAL_DRIVE = 2;
+const int PRECISION_DRIVE = 0.25;
