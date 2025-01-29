@@ -27,25 +27,25 @@ void drivetrain_periodic() {
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
     
 	while(true){
-		int analogY = controller.get_analog(ANALOG_LEFT_Y);
-		int analogX = controller.get_analog(ANALOG_RIGHT_X);
+		int analogY = controller.get_analog(ANALOG_LEFT_Y);  // Forward/backward
+        int analogX = controller.get_analog(ANALOG_RIGHT_X); // Turning
 
-		precision_drive = static_cast<bool>(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
-		turbo_drive = static_cast<bool>(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+        precision_drive = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
+        turbo_drive = controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
 
+        if (precision_drive) {
+            drive_multiplier = PRECISION_MULTIPLIER;
+        } else if (turbo_drive) {
+            drive_multiplier = TURBO_MULTIPLIER;
+        } else {
+            drive_multiplier = NORMAL_MULTIPLIER;
+        }
 
-		if(precision_drive) {
-			drive_multiplier = PRECISION_MULTIPLIER;
-		} else if(turbo_drive) {
-			drive_multiplier = TURBO_MULTIPLIER;
-		} else {
-			drive_multiplier = NORMAL_MULTIPLIER;
-		}
+        // Allow moving and turning simultaneously
+        int left_speed = static_cast<int>((analogY + analogX) * drive_multiplier);
+        int right_speed = static_cast<int>((analogY - analogX) * drive_multiplier);
 
-		if(analogY != 0){
-			move(static_cast<int>(analogY * drive_multiplier));
-		} else {
-			turn(static_cast<int>(analogX * drive_multiplier));
-		}
+        left_motors.move(left_speed);
+        right_motors.move(-right_speed); // Inverted due to motor orientation
 	}
 }
