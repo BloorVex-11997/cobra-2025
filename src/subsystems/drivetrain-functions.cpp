@@ -1,13 +1,15 @@
-#include "drivetrain-functions.h"
-#include "globals.h"
 #include "main.h"
+#include "drivetrain-functions.hpp"
+#include "globals.hpp"
 
-int drive_multiplier = 1;
-static int NORMAL_MULTIPLIER = 1.5;
-static int PRECISION_MULTIPLIER = 0.33;
 
-pros::MotorGroup left_motors({LEFT_MOTOR_ONE_ID, LEFT_MOTOR_TWO_ID});
-pros::MotorGroup right_motors({RIGHT_MOTOR_ONE_ID, RIGHT_MOTOR_TWO_ID});
+double drive_multiplier = 1;
+bool precision_drive = false;
+bool turbo_drive = false;
+
+
+pros::MotorGroup left_motors({LEFT_FRONT_MOTOR_ID, LEFT_BACK_MOTOR_ID});
+pros::MotorGroup right_motors({RIGHT_FRONT_MOTOR_ID, RIGHT_BACK_MOTOR_ID});
 
 void move(int speed) {
 	// WARNING: DON'T CHANGE SIGNS BECAUSE THE MOTORS ARE INVERTED!
@@ -25,21 +27,25 @@ void drivetrain_periodic() {
     pros::Controller controller(pros::E_CONTROLLER_MASTER);
     
 	while(true){
-		int analogY = controller.get_analog(ANALOG_RIGHT_Y);
-		int analogX = controller.get_analog(ANALOG_LEFT_X);
+		int analogY = controller.get_analog(ANALOG_LEFT_Y);
+		int analogX = controller.get_analog(ANALOG_RIGHT_X);
 
-		bool precision_drive = static_cast<bool>(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
-		
+		precision_drive = static_cast<bool>(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
+		turbo_drive = static_cast<bool>(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+
+
 		if(precision_drive) {
 			drive_multiplier = PRECISION_MULTIPLIER;
+		} else if(turbo_drive) {
+			drive_multiplier = TURBO_MULTIPLIER;
 		} else {
 			drive_multiplier = NORMAL_MULTIPLIER;
 		}
 
 		if(analogY != 0){
-			move(analogY * drive_multiplier);
+			move(static_cast<int>(analogY * drive_multiplier));
 		} else {
-			turn(analogX * drive_multiplier);
+			turn(static_cast<int>(analogX * drive_multiplier));
 		}
 	}
 }

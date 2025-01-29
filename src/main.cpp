@@ -1,6 +1,7 @@
 #include "main.h"
-#include "drivetrain-functions.h"
-#include "elevator-functions.h"
+#include "./subsystems/drivetrain-functions.hpp"
+#include "./subsystems/elevator-functions.hpp"
+#include "./globals.hpp"
 
 /**
  * A callback function for LLEMU's center button.
