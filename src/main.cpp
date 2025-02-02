@@ -1,6 +1,7 @@
 #include "main.h"
 #include "./subsystems/drivetrain-functions.hpp"
 #include "./subsystems/elevator-functions.hpp"
+#include "./grabber-functions.hpp"
 #include "./globals.hpp"
 
 /**
@@ -63,13 +64,12 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	//main update loop
+	// add autonomous code later
 	while(true){
 		drivetrain_periodic();
 		elevator_periodic();
 		pros::delay(20);
 	}
-
 }
 
 /**
@@ -108,5 +108,11 @@ void opcontrol() {
 	}
 	*/
 
-	
+	while(true){
+		drivetrain_periodic();
+		elevator_periodic();
+		grabber_periodic();
+		
+		pros::delay(20);
+	}
 }

@@ -1,5 +1,5 @@
 #pragma once
 
-void turn_motor();
-void retract_motor();
+void open_grabber();
+void close_grabber();
 void grabber_periodic();

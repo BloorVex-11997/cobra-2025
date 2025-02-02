@@ -31,7 +31,7 @@ void handle_input() {
 
     precision_drive = controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1);
     turbo_drive = controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1);
-    bool pressed = controller.get_digital(pros::E_CONTROLLER_DIGITAL_A);
+    bool pressed = controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A);
 
     if(pressed){
         if(arcade_drive){
