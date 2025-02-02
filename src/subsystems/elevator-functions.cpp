@@ -4,11 +4,13 @@
 #include "subsystems/elevator-functions.hpp"
 
 pros::Motor elevator_motor(ELEVATOR_MOTOR_ID);
+pros::Motor intake_motor(INTAKE_MOTOR_ID);
 
 bool active = false;
 
 void run_elevator(int speed) {
     elevator_motor.move(speed);
+    intake_motor.move(speed);
 }
 
 void elevator_periodic() {

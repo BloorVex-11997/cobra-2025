@@ -16,10 +16,5 @@ void grabber_periodic() {
         grabber_finish_time = pros::millis() + GRABBER_DURATION;
     }
 
-    if (pros::millis() <= grabber_finish_time) {
-        grabber_motor.move(grabber_active ? GRABBER_SPEED : -GRABBER_SPEED);
-    } else {
-        grabber_motor.move(0);
-        grabber_motor.brake();
-    }
+    grabber_motor.move(grabber_active ? GRABBER_SPEED : -GRABBER_SPEED);
 }
