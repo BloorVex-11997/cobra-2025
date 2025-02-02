@@ -1,7 +1,7 @@
 #include "main.h"
 #include "./subsystems/drivetrain-functions.hpp"
 #include "./subsystems/elevator-functions.hpp"
-#include "./grabber-functions.hpp"
+#include "./subsystems/grabber-functions.hpp"
 #include "./globals.hpp"
 
 /**
