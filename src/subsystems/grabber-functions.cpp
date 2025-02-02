@@ -4,6 +4,10 @@
 
 pros::Motor grabber_motor(GRABBER_MOTOR_ID);
 
+void grabber_initialize() {
+    grabber_motor.set_brake_mode(MOTOR_BRAKE_HOLD);
+}
+
 bool grabber_active = false;
 uint32_t grabber_finish_time = 0;
 
@@ -16,5 +20,9 @@ void grabber_periodic() {
         grabber_finish_time = pros::millis() + GRABBER_DURATION;
     }
 
-    grabber_motor.move(grabber_active ? GRABBER_SPEED : -GRABBER_SPEED);
+    if(pros::millis() < grabber_finish_time){
+        grabber_motor.move(grabber_active ? GRABBER_SPEED : -GRABBER_SPEED);
+    } else {
+        grabber_motor.brake();
+    }
 }
