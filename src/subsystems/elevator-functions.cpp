@@ -3,21 +3,21 @@
 #include "globals.hpp"
 #include "subsystems/elevator-functions.hpp"
 
-pros::Motor elevator_motor(ELEVATOR_MOTOR_ID);
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
+pros::Motor elevator_motor(11);
+
 
 bool active = false;
 
 void extend_elevator() {
-    elevator_motor.move(ELEVATOR_SPEED);
+    elevator_motor.move(100);
 }
 
 void retract_elevator() {
-    elevator_motor.move(-ELEVATOR_SPEED);
+    elevator_motor.move(-100);
 }
 
 void elevator_periodic() {
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+    if (controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_X)) {
         active = !active;
     }
 

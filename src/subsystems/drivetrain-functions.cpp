@@ -2,7 +2,7 @@
 #include "drivetrain-functions.hpp"
 #include "globals.hpp"
 
-pros::Controller controller(pros::E_CONTROLLER_MASTER);
+
 pros::MotorGroup left_motors({LEFT_FRONT_MOTOR_ID, LEFT_BACK_MOTOR_ID});
 pros::MotorGroup right_motors({RIGHT_FRONT_MOTOR_ID, RIGHT_BACK_MOTOR_ID});
 
@@ -51,8 +51,7 @@ void handle_input() {
 }
 
 void drivetrain_periodic() {
-	while(true){
-        handle_input();
+	handle_input();
 
         if(arcade_drive){
             // Arcade drive
@@ -68,5 +67,4 @@ void drivetrain_periodic() {
 
             move(left_speed, right_speed);
         }
-	}
 }

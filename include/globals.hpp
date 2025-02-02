@@ -14,3 +14,5 @@ const int GRABBER_SPEED = 10;
 const int NORMAL_MULTIPLIER= 1;
 const double PRECISION_MULTIPLIER = 0.25;
 const double TURBO_MULTIPLIER = 2;
+
+inline pros::Controller controller(pros::E_CONTROLLER_MASTER);

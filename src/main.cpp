@@ -64,9 +64,11 @@ void competition_initialize() {}
  */
 void autonomous() {
 	//main update loop
-	drivetrain_periodic();
-	elevator_periodic();
-	pros::delay(20);
+	while(true){
+		drivetrain_periodic();
+		elevator_periodic();
+		pros::delay(20);
+	}
 
 }
 
