@@ -65,11 +65,6 @@ void competition_initialize() {}
  */
 void autonomous() {
 	// add autonomous code later
-	while(true){
-		drivetrain_periodic();
-		elevator_periodic();
-		pros::delay(20);
-	}
 }
 
 /**
@@ -109,10 +104,14 @@ void opcontrol() {
 	*/
 
 	while(true){
-		drivetrain_periodic();
-		elevator_periodic();
-		grabber_periodic();
-		
-		pros::delay(20);
+		try {
+            drivetrain_periodic();
+            elevator_periodic();
+            grabber_periodic();
+        } catch (const std::exception& e) {
+            pros::lcd::set_text(1, std::string("Error: ") + e.what());
+        }
+
+        pros::delay(20);
 	}
 }
